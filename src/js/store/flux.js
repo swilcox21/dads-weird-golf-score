@@ -1,20 +1,30 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
+			pointPerHole: [
 				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
+					p1: null,
+					p2: null,
+					p3: null,
+					p4: null
 				}
 			]
 		},
 		actions: {
+			// weird function to calculate team points per hole
+			teamPoints: () => {
+				if (pointPerHole.p1 + pointPerHole.p2 > pointPerHole.p3 + pointPerHole.p4) return 1;
+				else if (pointPerHole.p1 + pointPerHole.p2 < pointPerHole.p3 + pointPerHole.p4) return -1;
+				else return 0;
+			},
+
+			// handle score input function
+			handleScoreInput: score => {
+				let tempStore = getStore();
+				tempStore.pointPerHole.push(score);
+				setStore({ tempStore });
+			},
+
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
